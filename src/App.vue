@@ -14,18 +14,20 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userInfoDropdown" role="button" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              {{this.user}}
+              {{ this.user }}
             </a>
-            <div class="dropdown-menu" aria-labelledby="userInfoDropdown">
-              <a class="dropdown-item" href="/view/user" @click="view = 'user'">用户视角</a>
-              <a class="dropdown-item" href="/view/advertiser" @click="view = 'advertiser'">广告主视角</a>
-              <router-link class="dropdown-item" to="/account-settings">账户设置</router-link>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userInfoDropdown" style="max-width: 200px;">
+              <a class="dropdown-item" href="/view/user" @click="view = 'user'">I'm user</a>
+              <a class="dropdown-item" href="/view/advertiser" @click="view = 'advertiser'">I'm advertiser</a>
             </div>
           </li>
         </ul>
       </div>
     </nav>
     <div class="content">
+      <div class="welcome" style="display:flex; justify-content:center; align-items:center; margin-bottom:20px;">
+        <h1 class="fs-2 fw-bold text-center">Welcome to parami World!</h1>
+      </div>
       <router-view></router-view>
     </div>
   </div>
@@ -62,9 +64,9 @@ export default {
 
 /* 设置下拉菜单的样式 */
 .dropdown-menu {
-  width: 150px;
+  width: auto;
   background-color: #f8f9fa;
-  border: none;
+  z-index: auto;
 }
 
 /* 设置下拉菜单中选项的样式 */
