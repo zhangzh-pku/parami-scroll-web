@@ -19,6 +19,20 @@
 
 .login-button {
     margin-bottom: 16px;
+    background-color: #ff7f00;
+    /* 橙色背景 */
+    color: white;
+    /* 白色文本 */
+    font-size: 18px;
+    /* 更大的字体大小 */
+    padding: 12px 24px;
+    /* 更大的内边距 */
+    border: none;
+    /* 移除边框 */
+    border-radius: 4px;
+    /* 圆角 */
+    cursor: pointer;
+    /* 更改鼠标指针样式 */
 }
 </style>
   
@@ -69,7 +83,6 @@ export default {
                         // 获取以太坊地址并存储到本地存储中
                         const address = provider[0];
                         localStorage.setItem('address', address);
-
                         // 重定向到用户视图页面
                         this.$router.push('/view/user');
                     } else {

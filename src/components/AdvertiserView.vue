@@ -8,9 +8,14 @@
                 <label class="file-class">Ad icon: <span class="required" v-if="adIconRequired">*</span></label>
                 <span class="custom-upload">
                     <input type="file" @change="onAdIconChange" />
-                    <button type="button" class="upload-btn">
-                        <span>Click to Upload</span>
-                    </button>
+                    <div class="file-input">
+                        <input type="file" @change="onPosterChange" />
+                    </div>
+                    <div class="upload-button">
+                        <button type="button" class="upload-btn">
+                            <span>Click to Upload</span>
+                        </button>
+                    </div>
                 </span>
                 <label class="file-class">Poster: <span class="required" v-if="posterRequired">*</span></label>
                 <span class="custom-upload">
@@ -34,6 +39,7 @@
                     <img v-else c;ass="ad-icon" :src="adIconPreview">
                 </a>
             </div>
+            <button class="bid-button" @click="bid">Bid</button>
         </div>
     </div>
 </template>
@@ -52,6 +58,9 @@ export default {
             posterPreview: '',
         };
     },
+    bid() {
+        console.log(1)
+    }, 
     computed: {
         contentRequired() {
             return this.ad.content.trim() === '';
@@ -177,16 +186,23 @@ input[type="file"] {
 }
 
 .upload-btn {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
     background-color: #f0f0f0;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     color: rgba(0, 0, 0, 0.85);
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
     padding: 6px 12px;
-    justify-content: center;
     width: 100%;
+    text-align: center;
+}
+
+button,
+span {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .default-poster {
@@ -200,5 +216,20 @@ input[type="file"] {
     font-size: 24px;
     color: #999;
     text-align: center;
+}
+
+.custom-upload {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.file-input {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.upload-button {
+    width: 100%;
 }
 </style>

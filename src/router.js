@@ -2,7 +2,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/components/HomePage.vue";
 import AccountSettings from "@/components/AccountSettings.vue";
-import LoginPage from "@/components/LoginPage.vue"
 import UserView from "@/components/UserView.vue"
 import AdvertiserView from "@/components/AdvertiserView.vue"
 
@@ -17,11 +16,6 @@ const router = createRouter({
       path: "/home",
       name: "Home",
       component: HomePage,
-    },
-    {
-      path: "/login",
-      name: "Login",
-      component: LoginPage,
     },
     {
       path: "/account-settings",
