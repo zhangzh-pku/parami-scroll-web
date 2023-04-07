@@ -54,7 +54,7 @@ export default {
     methods: {
         claimReward() {
             // 向后端请求领取奖励
-            this.$emit('claim-reward');
+            console.log('1')
         },
         postAd() {
             // 跳转到发布广告页面

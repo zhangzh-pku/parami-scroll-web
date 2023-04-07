@@ -25,9 +25,6 @@
       </div>
     </nav>
     <div class="content">
-      <div class="welcome" style="display:flex; justify-content:center; align-items:center; margin-bottom:20px;">
-        <h1 class="fs-2 fw-bold text-center">Welcome to parami World!</h1>
-      </div>
       <router-view></router-view>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <button class="login-button" @click="loginWithMetamask">login via metamask</button>
+        <button class="login-button" @click="connectMetaMask">login via metamask</button>
         <div v-if="view === 'advertiser'">
             <advertiser-view @submit="submitReward"></advertiser-view>
         </div>
@@ -38,13 +38,22 @@
   
 
 <script>
+import { ethers } from "ethers";
+import { inject } from 'vue';
 export default {
     data() {
         return {
             view: 'user', // 当前视图
         };
     },
+    setup() {
+        const store = inject('store');
+        return { store };
+    },
     methods: {
+        setSigner(newSigner) {
+            this.store.signer = newSigner;
+        },
         submitReward(rewardInfo) {
             // 向后端提交激励信息
             console.log('提交激励信息', rewardInfo);
@@ -67,39 +76,36 @@ export default {
             // 跳转到登录页面
             this.$router.push({ name: 'Login' });
         },
-        async loginWithMetamask() {
-            try {
-                const loggedIn = localStorage.getItem('address');
-                if (loggedIn) {
-                    this.$router.push('/view/user')
-                }
-                // 检查 window.ethereum 对象是否存在
-                if (typeof window.ethereum !== 'undefined') {
-                    // 请求以太坊账户
-                    const provider = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setup() {
+            const store = inject('store');
+            return { store };
+        },
 
-                    // 检查是否成功获取以太坊账户
-                    if (provider.length) {
-                        // 获取以太坊地址并存储到本地存储中
-                        const address = provider[0];
-                        localStorage.setItem('address', address);
-                        // 重定向到用户视图页面
-                        this.$router.push('/view/user');
-                    } else {
-                        // 用户未授权访问钱包，显示错误信息
-                        alert('No Metamask wallet found or user denied permission.');
-                    }
-                } else {
-                    // window.ethereum 对象不存在，显示错误信息
-                    alert('Metamask is not installed or not accessible. Please install or enable Metamask and try again.');
+        async connectMetaMask() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const account = await window.ethereum.request({
+                        method: "eth_requestAccounts",
+                    });
+                    const customTestnetRpcUrl = 'https://alpha-rpc.scroll.io/l2';
+                    var provider = new ethers.providers.JsonRpcProvider(customTestnetRpcUrl);
+                    var signer = provider.getSigner(account[0]);
+
+                    // vue3 中使用ethers.js链接metamask，需要记录signer，给我提供多个解决方案
+                    // 如果可以使用localStorage 也请展示
+                    this.setSigner(signer);
+                    console.log('test signer:', signer);
+                    this.isConnected = true;
+                    this.$router.push('/view/advertiser')
+                } catch (error) {
+                    alert('error')
+                    console.log("Error connecting to MetaMask:", error);
                 }
-            } catch (error) {
-                console.error(error);
-                alert('An error occurred while logging in with Metamask. Please try again later.');
+            } else {
+                alert("MetaMask not detected. Please install it.");
             }
-        }
+        },
 
     },
 };
 </script>
-  

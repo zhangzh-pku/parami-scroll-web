@@ -1,11 +1,15 @@
 // main.js
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import axios from 'axios'
+import { createApp, reactive } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import axios from "axios";
 
+const store = reactive({
+    signer: null,
+});
 
 const app = createApp(App);
-app.config.globalProperties.$http = axios
+app.provide('store', store);
+app.config.globalProperties.$http = axios;
 app.use(router);
-app.mount('#app');
+app.mount("#app");
