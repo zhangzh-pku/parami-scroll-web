@@ -4,7 +4,6 @@
         </div>
         <div class="user-actions">
             <button class="btn btn-lg btn-orange m-2" @click="claimReward">领取奖励</button>
-            <button class="btn btn-lg btn-orange m-2" @click="postAd">发布广告</button>
         </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <button @click="loginWithMetamask">login via metamask</button>
+    <div class="container">
+        <button class="login-button" @click="loginWithMetamask">login via metamask</button>
         <div v-if="view === 'advertiser'">
             <advertiser-view @submit="submitReward"></advertiser-view>
         </div>
@@ -9,6 +9,19 @@
         </div>
     </div>
 </template>
+  
+<style scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-button {
+    margin-bottom: 16px;
+}
+</style>
+  
 
 <script>
 export default {
