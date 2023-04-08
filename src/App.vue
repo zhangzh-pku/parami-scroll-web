@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand d-flex align-items-center" href="#">
         <img src="./img/iconic_gradientbg.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        <span class="ml-2 fs-4 fw-bold">PARAMI PROTOCOL</span>
+        <span class="ml-2 fs-4 fw-bold">HyperNFT In Scroll</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

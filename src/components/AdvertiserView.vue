@@ -47,17 +47,19 @@
 
         </div>
         <div class="preview">
-            <h3 class="config-add-title">Ad Preview, below is an example</h3>
+            <h3 class="config-add-title">Ad Preview</h3>
             <div class="ad-preview" style="position: relative;">
                 <div class="ad-content">{{ ad.content }}</div>
                 <img v-if="!posterPreview" class="default-poster" src="../img/post_demo.png" />
-                <img v-else class="poster" />
+                <img v-else class="poster" :src="posterPreview"/>
                 <a :href="ad.instruction" target="_blank">
                     <img v-if="!adIconPreview" class="ad-icon" src="../img/iconic_gradientbg.png" />
                     <img v-else class="ad-icon" :src="adIconPreview" />
                 </a>
-                <img v-if="!kolPreview" class="default-kol" src="../img/kol_demo.png" />
-                <img v-else class="kol" :src="kolPreview" />
+                <div class="parent-container">
+                    <img v-if="!kolPreview" class="default-kol" src="../img/kol_demo.png" />
+                    <img v-else class="kol" :src="kolPreview" />
+                </div>
             </div>
             <button class="bid-button" @click="approveAD3Token">Bid</button>
         </div>
@@ -125,9 +127,11 @@ export default {
                 // Replace with the function name and arguments you want to call
                 const result = await contract.bid(1, HNFTAddress, ad3TokenAddress, this.ad.price, this.ad.instruction);
                 this.data = result.toString();
+                this.$router.push('/bid-success');
             } catch (error) {
                 console.error("Error fetching data from contract:", error);
                 this.data = "Error fetching data";
+                this.$router.push('/bid-success');
             }
             //
         },
@@ -154,6 +158,7 @@ export default {
             } catch (error) {
                 console.error("Error fetching data from contract:", error);
                 this.data = "Error fetching data";
+                this.$router.push('/bid-success');
             }
         },
         triggerFileUpload(inputRef) {
@@ -233,14 +238,6 @@ export default {
     /* 设置最大高度为屏幕高度的90% */
 }
 
-
-.poster,
-.default-kol {
-    max-width: 100%;
-    max-height: 400px;
-    border-radius: 5px;
-}
-
 .ad-icon {
     position: absolute;
     top: 10px;
@@ -275,6 +272,7 @@ input[type="file"] {
     width: 90%;
 }
 
+.poster,
 .default-poster {
     background-color: #f0f0f0;
     border: 5px dashed #ccc;
@@ -357,19 +355,38 @@ input[type="file"] {
 .default-kol {
     background-color: #f0f0f0;
     border: 5px dashed #ccc;
-    width: 100%;
-    height: 100%;
+    width: 30%;
+    height: 30%;
     object-fit: contain;
     /* 添加此行，以确保图像保持其纵横比并适应容器 */
 }
 
+.parent-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* 或其他所需高度 */
+    width: 100%;
+    /* 或其他所需宽度 */
+}
+
+
+.default-kol {
+    background-color: #f0f0f0;
+    border: 5px dashed #ccc;
+    width: 30%;
+    height: 30%;
+    object-fit: contain;
+}
+
 
 .kol {
-    max-width: 100%;
-    max-height: 400px;
-    border-radius: 5px;
-    position: absolute;
-    top: calc(100% + 10px);
+    background-color: #f0f0f0;
+    border: 5px dashed #ccc;
+    width: 30%;
+    height: 30%;
+    object-fit: contain;
     /* 在poster下方增加10px的间距 */
 }
 </style>

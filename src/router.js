@@ -2,8 +2,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "@/components/HomePage.vue";
 import AccountSettings from "@/components/AccountSettings.vue";
-import UserView from "@/components/UserView.vue"
-import AdvertiserView from "@/components/AdvertiserView.vue"
+import UserView from "@/components/UserView.vue";
+import AdvertiserView from "@/components/AdvertiserView.vue";
+import BidSuccess from "@/components/bidSuccess.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,31 +27,36 @@ const router = createRouter({
       },
     },
     {
-      path: '/view',
-      name: 'view',
+      path: "/bid-success",
+      name: "BidSuccess",
+      component: BidSuccess,
+    },
+    {
+      path: "/view",
+      name: "view",
       meta: {
         requiresAuth: true,
       },
       children: [
         {
-          path: 'user',
-          name: 'user',
-          component: UserView
+          path: "user",
+          name: "user",
+          component: UserView,
         },
         {
-          path: 'advertiser',
-          name: 'advertiser',
-          component: AdvertiserView
-        }
-      ]
-    }
+          path: "advertiser",
+          name: "advertiser",
+          component: AdvertiserView,
+        },
+      ],
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem('address');
-  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-    next('/home');
+  const loggedIn = localStorage.getItem("address");
+  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    next("/home");
   } else {
     next();
   }
